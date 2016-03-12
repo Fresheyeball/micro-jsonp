@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Parse JSONp Prototype</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <script src="../src/jsonp.min.js"></script>
+        <script>
+            function htmlEscape(str) {
+                return String(str)
+                        .replace(/&/g, '&amp;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+            }
+
+            jsonp(
+                "http://api.flickr.com/services/feeds/photos_public.gne?tags=monkey&tagmode=any&format=json"
+                , "jsoncallback", function(res){
+                    document.body.appendChild(
+                        document.createElement('pre')).innerHTML =
+                            htmlEscape(JSON.stringify(res, null, 4));
+                });
+        </script>
+    </head>
+    <body></body>
+</html>
