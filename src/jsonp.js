@@ -1,40 +1,52 @@
 function jsonp(url, key, callback) {
 
-    var appendParam = function(url, key, param){
-            return url
-                + (url.indexOf("?") > 0 ? "&" : "?")
-                + key + "=" + param;
-        },
+    var
+        doc =
+            document,
 
-        createScript = function(url, callback){
-            var doc = document,
-                head = doc.head,
-                script = doc.createElement("script");
+        head =
+            doc.head,
 
-            script
-            .setAttribute("src", url);
+        script =
+            doc.createElement("script"),
 
-            head
-            .appendChild(script);
+        // generate minimally unique name for callback function
+        callbackName =
+            "f" + Math.round(Math.random() * Date.now());
 
-            callback(function(){
-                setTimeout(function(){
-                    head
+    // set request url
+    script
+        .setAttribute("src",
+        /*  add callback parameter to the url
+            where key is the parameter key supplied
+            and callbackName is the parameter value */
+        (url + (url.indexOf("?") > 0 ? "&" : "?")
+             + key + "=" + callbackName));
+
+    /*  place jsonp callback on window,
+        the script sent by the server should call this
+        function as it was passed as a url parameter */
+    window[callbackName] =
+        function(json){
+
+            // suicide
+            window[callbackName] =
+                undefined;
+
+            // clean up script tag created for request
+            setTimeout(function(){
+                head
                     .removeChild(script);
-                }, 0);
-            });
-        },
 
-        q =
-            "q" + Math.round(Math.random() * Date.now());
+            }, 0);
 
-    createScript(
-        appendParam(url, key, q), function(remove){
-            window[q] =
-                function(json){
-                    window[q] = undefined;
-                    remove();
-                    callback(json);
-                };
-        });
+            // hand data back to the user
+            callback(json);
+
+        };
+
+    // actually make the request
+    head
+        .appendChild(script);
+
 }
