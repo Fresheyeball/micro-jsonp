@@ -15,6 +15,8 @@ jsonp("http://foreignDomain.foo/bar", "callbackName", function(data){
 
 ## Live example
 
+[**Live Demo** -> http://fresheyeball.github.io/micro-jsonp/example/](http://fresheyeball.github.io/micro-jsonp/example/)
+
 #### Opening `example/index.html` in a browser will usually do the trick
 
 If that fails, you may need to run some kind of file server from the root of this project. 
