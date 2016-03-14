@@ -13,6 +13,28 @@ jsonp("http://foreignDomain.foo/bar", "callbackName", function(data){
 });
 ```
 
+## Live example
+
+#### Opening `example/index.html` in a browser will usually do the trick
+
+If that fails, you may need to run some kind of file server from the root of this project. 
+Any one will do, for example:
+
+```zsh
+npm install -g http-server
+cd micro-jsonp
+http-server -p 8000
+```
+
+or 
+
+```zsh
+cd micro-jsonp
+python -m SimpleHTTPServer 8000
+```
+
+Should get you files serving at localhost. Simply navigate to `http://localhost:8000/example/` and you should have jsonp.
+
 ## Packaging
 
 Feel free to add this script to the package manager of your choice. I've not gotten around to it.
