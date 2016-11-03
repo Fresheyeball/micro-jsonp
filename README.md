@@ -1,6 +1,6 @@
 # Micro Jsonp
 
-Small as possible jsonp library, clocking in at 242 bytes mangled and zipped.
+Small as possible jsonp library, clocking in at 226 bytes mangled and zipped.
 Request overhead of the padding has been minimized with help from Joe Hoeller, down to ~1.5ms including cleanup.
 
 ## Usage
